@@ -16,6 +16,6 @@ else
 fi
 
 # docker image has been build when running the crossdock
-REPO=jaegertracing/test-driver
+REPO=ashmita1/test-driver
 docker tag $REPO:latest $REPO:$COMMIT
 bash scripts/upload-to-registry.sh $REPO

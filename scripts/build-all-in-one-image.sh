@@ -47,7 +47,7 @@ upload_to_docker() {
 
 make build-all-in-one GOOS=linux GOARCH=$GOARCH
 make create-baseimg-debugimg
-repo=jaegertracing/all-in-one
+repo=ashmita1/all-in-one
 docker build -f cmd/all-in-one/Dockerfile \
         --target release \
         --tag $repo:latest cmd/all-in-one \
@@ -58,7 +58,7 @@ run_integration_test $repo
 upload_to_docker $repo
 
 make build-all-in-one-debug GOOS=linux GOARCH=$GOARCH
-repo=jaegertracing/all-in-one-debug
+repo=ashmita1/all-in-one-debug
 docker build -f cmd/all-in-one/Dockerfile \
         --target debug \
         --tag $repo:latest cmd/all-in-one \
@@ -69,7 +69,7 @@ run_integration_test $repo
 upload_to_docker $repo
 
 make build-otel-all-in-one GOOS=linux GOARCH=$GOARCH
-repo=jaegertracing/opentelemetry-all-in-one
+repo=ashmita1/opentelemetry-all-in-one
 docker build -f cmd/opentelemetry/cmd/all-in-one/Dockerfile -t $repo:latest cmd/opentelemetry/cmd/all-in-one --build-arg TARGETARCH=$GOARCH
 run_integration_test $repo
 upload_to_docker $repo

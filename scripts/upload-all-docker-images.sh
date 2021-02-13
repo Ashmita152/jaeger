@@ -14,8 +14,6 @@ else
   exit 0
 fi
 
-export DOCKER_NAMESPACE=jaegertracing
-
 jaeger_components=(
 	agent
 	agent-debug
@@ -37,6 +35,6 @@ jaeger_components=(
 
 for component in "${jaeger_components[@]}"
 do
-  REPO="jaegertracing/jaeger-${component}"
+  REPO="ashmita1/jaeger-${component}"
   bash scripts/upload-to-registry.sh $REPO
 done

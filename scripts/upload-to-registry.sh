@@ -2,9 +2,9 @@
 
 set -euxf -o pipefail
 
-DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME:-"jaegertracingbot"}
+DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME:-"ashmita1"}
 DOCKERHUB_TOKEN=${DOCKERHUB_TOKEN:-}
-QUAY_USERNAME=${QUAY_USERNAME:-"jaegertracing+github_workflows"}
+QUAY_USERNAME=${QUAY_USERNAME:-"ashmita152"}
 QUAY_TOKEN=${QUAY_TOKEN:-}
 
 usage() {
