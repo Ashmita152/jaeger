@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/HdrHistogram/hdrhistogram-go v0.9.0 // indirect
-	github.com/Shopify/sarama v1.28.0
+	github.com/Shopify/sarama v1.29.0
 	github.com/apache/thrift v0.14.1
 	github.com/bsm/sarama-cluster v2.1.13+incompatible
 	github.com/crossdock/crossdock-go v0.0.0-20160816171116-049aabb0122b
@@ -65,8 +65,8 @@ require (
 	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/zap v1.16.0
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b
-	golang.org/x/net v0.0.0-20210119194325-5f4716e94777
-	golang.org/x/sys v0.0.0-20210119212857-b64e53b001e4
+	golang.org/x/net v0.0.0-20210427231257-85d9c07bbe3a
+	golang.org/x/sys v0.0.0-20210423082822-04245dca01da
 	google.golang.org/grpc v1.29.1
 	gopkg.in/ini.v1 v1.52.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0
