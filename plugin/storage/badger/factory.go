@@ -22,8 +22,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/dgraph-io/badger"
-	"github.com/dgraph-io/badger/options"
+	"github.com/dgraph-io/badger/v3"
 	"github.com/spf13/viper"
 	"github.com/uber/jaeger-lib/metrics"
 	"go.uber.org/zap"
@@ -95,7 +94,7 @@ func (f *Factory) Initialize(metricsFactory metrics.Factory, logger *zap.Logger)
 	f.logger = logger
 
 	opts := badger.DefaultOptions("")
-	opts.TableLoadingMode = options.MemoryMap
+	opts.MetricsEnabled = true
 
 	if f.Options.Primary.Ephemeral {
 		opts.SyncWrites = false
@@ -117,7 +116,6 @@ func (f *Factory) Initialize(metricsFactory metrics.Factory, logger *zap.Logger)
 		opts.ValueDir = f.Options.Primary.ValueDirectory
 
 		// These options make no sense with ephemeral data
-		opts.Truncate = f.Options.Primary.Truncate
 		opts.ReadOnly = f.Options.Primary.ReadOnly
 	}
 
