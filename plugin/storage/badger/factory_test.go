@@ -189,9 +189,20 @@ func TestBadgerMetrics(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestInitFromOptions(t *testing.T) {
+func TestInitFromDefaultOptions(t *testing.T) {
 	f := NewFactory()
 	opts := Options{}
+	f.InitFromOptions(opts)
+	assert.Equal(t, &opts, f.Options)
+}
+
+func TestInitFromCustomOptions(t *testing.T) {
+	f := NewFactory()
+	opts := Options{
+		Primary: NamespaceConfig{
+			Truncate: true,
+		},
+	}
 	f.InitFromOptions(opts)
 	assert.Equal(t, &opts, f.Options)
 }
