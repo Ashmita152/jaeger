@@ -94,7 +94,6 @@ func (f *Factory) Initialize(metricsFactory metrics.Factory, logger *zap.Logger)
 	f.logger = logger
 
 	opts := badger.DefaultOptions("")
-	opts.MetricsEnabled = true
 
 	if f.Options.Primary.Ephemeral {
 		opts.SyncWrites = false
@@ -116,6 +115,9 @@ func (f *Factory) Initialize(metricsFactory metrics.Factory, logger *zap.Logger)
 		opts.ValueDir = f.Options.Primary.ValueDirectory
 
 		// These options make no sense with ephemeral data
+		if f.Options.Primary.Truncate {
+			logger.Warn("NOTE: Deprecated flag --badger.truncate enabled " + truncateWarning)
+		}
 		opts.ReadOnly = f.Options.Primary.ReadOnly
 	}
 

@@ -40,8 +40,12 @@ type NamespaceConfig struct {
 	SyncWrites            bool          `mapstructure:"consistency"`
 	MaintenanceInterval   time.Duration `mapstructure:"maintenance_interval"`
 	MetricsUpdateInterval time.Duration `mapstructure:"metrics_update_interval"`
+	Truncate              bool          `mapstructure:"truncate"`
 	ReadOnly              bool          `mapstructure:"read_only"`
 }
+
+// TODO deprecated flag to be removed
+const truncateWarning = "(deprecated since v1.24.0, will be removed in release v1.26.0)"
 
 const (
 	defaultMaintenanceInterval   time.Duration = 5 * time.Minute
@@ -133,6 +137,11 @@ func addFlags(flagSet *flag.FlagSet, nsConfig NamespaceConfig) {
 		"How often the badger metrics are collected by Jaeger. Format is time.Duration (https://golang.org/pkg/time/#Duration)",
 	)
 	flagSet.Bool(
+		nsConfig.namespace+suffixTruncate,
+		nsConfig.Truncate,
+		truncateWarning+" If write-ahead-log should be truncated on restart. This will cause data loss.",
+	)
+	flagSet.Bool(
 		nsConfig.namespace+suffixReadOnly,
 		nsConfig.ReadOnly,
 		"Allows to open badger database in read only mode. Multiple instances can open same database in read-only mode. Values still in the write-ahead-log must be replayed before opening.",
@@ -152,6 +161,7 @@ func initFromViper(cfg *NamespaceConfig, v *viper.Viper) {
 	cfg.SpanStoreTTL = v.GetDuration(cfg.namespace + suffixSpanstoreTTL)
 	cfg.MaintenanceInterval = v.GetDuration(cfg.namespace + suffixMaintenanceInterval)
 	cfg.MetricsUpdateInterval = v.GetDuration(cfg.namespace + suffixMetricsInterval)
+	cfg.Truncate = v.GetBool(cfg.namespace + suffixTruncate)
 	cfg.ReadOnly = v.GetBool(cfg.namespace + suffixReadOnly)
 }
 
