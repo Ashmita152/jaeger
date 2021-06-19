@@ -189,20 +189,23 @@ func TestBadgerMetrics(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestInitFromDefaultOptions(t *testing.T) {
+func TestInitFromOptions(t *testing.T) {
 	f := NewFactory()
 	opts := Options{}
 	f.InitFromOptions(opts)
 	assert.Equal(t, &opts, f.Options)
 }
 
-func TestInitFromCustomOptions(t *testing.T) {
+func TestTruncateCodecov(t *testing.T) {
 	f := NewFactory()
-	opts := Options{
-		Primary: NamespaceConfig{
-			Truncate: true,
-		},
-	}
-	f.InitFromOptions(opts)
-	assert.Equal(t, &opts, f.Options)
+	v, command := config.Viperize(f.AddFlags)
+	command.ParseFlags([]string{
+		"--badger.truncate",
+	})
+	f.InitFromViper(v)
+	mFactory := metricstest.NewFactory(0)
+	f.Initialize(mFactory, zap.NewNop())
+	defer f.Close()
+
+	assert.True(t, f.Options.Primary.Truncate)
 }
